@@ -2,6 +2,14 @@
   font-size: 24px;
 }
 
+.swiperContainer {
+  font-size: 50px;
+  width: 50%;
+  height: 50%;
+  display: block !important;
+  position: relative;
+}
+
 .box-title {
   font-size: 20px;
 }
@@ -39,7 +47,7 @@
   margin: 8px 16px;
   border-radius: 4px;
 
-  background-color: #fff;
+  background-color: #000;
 }
 
 .action-container {
@@ -68,11 +76,11 @@
 }
 
 .action-button:hover {
-  color: #fff;
+  color: #000;
   background-color: #555;
 }
 
-.swiper-container {
+.swiper-container, swiper {
   position: absolute;
   top: 0;
   right: 0;
@@ -86,6 +94,6 @@
 }
 
 .swiper-slide-active {
-  color: #fff;
-  background-color: #aaa;
+  color: #000;
+  /* background-color: #aaa; */
 }

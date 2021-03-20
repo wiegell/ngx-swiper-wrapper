@@ -1,118 +1,114 @@
-import { Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 
-import { SwiperComponent, SwiperDirective } from 'ngx-swiper-wrapper';
-import { SwiperOptions } from 'swiper';
-import { PaginationOptions } from 'swiper/types/components/pagination';
-import { ScrollbarOptions } from 'swiper/types/components/scrollbar';
+import { SwiperComponent, SwiperDirective } from "ngx-swiper-wrapper";
+import { SwiperOptions } from "swiper";
+import { PaginationOptions } from "swiper/types/components/pagination";
+import { ScrollbarOptions } from "swiper/types/components/scrollbar";
 
 @Component({
-  selector: 'my-app',
-  moduleId: 'src/app/app.component',
-  templateUrl: 'app.component.html',
-  styleUrls: [ 'app.component.css' ]
+  selector: "my-app",
+  moduleId: "src/app/app.component",
+  templateUrl: "app.component.html",
+  styleUrls: ["app.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  config: SwiperOptions = {};
+
+  virtualSlides: any = { slides: [] };
+
+  ngOnInit() {
+    this.config = {
+      virtual: {
+        addSlidesBefore: 3,
+        addSlidesAfter: 3,
+        slides: this.slides,
+        renderExternal: (data) => {
+          // console.log("RENDEREXTERNAL");
+          this.virtualSlides = data;
+        },
+      },
+      initialSlide: 2,
+      slidesPerView: 1,
+      navigation: false,
+      pagination: false,
+      scrollbar: false,
+      roundLengths: true,
+    };
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.slides.push(
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      );
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      }, 1);
+    }, 2000);
+  }
+
   public show: boolean = true;
 
   public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
+    "First slide",
+    "Second slide",
+    "Third slide",
+    "Fourth slide",
+    "Fifth slide",
+    "Sixth slide",
   ];
 
-  public type: string = 'component';
-
-  public disabled: boolean = false;
-
-  public config: SwiperOptions = {
-    a11y: { enabled: true },
-    direction: 'horizontal',
-    slidesPerView: 1,
-    keyboard: true,
-    mousewheel: true,
-    scrollbar: false,
-    navigation: true,
-    pagination: false
-  };
-
   private scrollbar: ScrollbarOptions = {
-    el: '.swiper-scrollbar',
+    el: ".swiper-scrollbar",
     hide: false,
-    draggable: true
+    draggable: true,
   };
 
   private pagination: PaginationOptions = {
-    el: '.swiper-pagination',
+    el: ".swiper-pagination",
     clickable: true,
-    hideOnClick: false
+    hideOnClick: false,
   };
 
   @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
   @ViewChild(SwiperDirective, { static: false }) directiveRef?: SwiperDirective;
 
-  constructor() {}
-
-  public toggleType(): void {
-    this.type = (this.type === 'component') ? 'directive' : 'component';
-  }
-
-  public toggleDisabled(): void {
-    this.disabled = !this.disabled;
-  }
-
-  public toggleDirection(): void {
-    this.config.direction = (this.config.direction === 'horizontal') ? 'vertical' : 'horizontal';
-  }
-
-  public toggleSlidesPerView(): void {
-    if (this.config.slidesPerView !== 1) {
-      this.config.slidesPerView = 1;
-    } else {
-      this.config.slidesPerView = 2;
-    }
-  }
-
-  public toggleOverlayControls(): void {
-    if (this.config.navigation) {
-      this.config.scrollbar = false;
-      this.config.navigation = false;
-
-      this.config.pagination = this.pagination;
-    } else if (this.config.pagination) {
-      this.config.navigation = false;
-      this.config.pagination = false;
-
-      this.config.scrollbar = this.scrollbar;
-    } else {
-      this.config.scrollbar = false;
-      this.config.pagination = false;
-
-      this.config.navigation = true;
-    }
-
-    if (this.type === 'directive' && this.directiveRef) {
-      this.directiveRef.setIndex(0);
-    } else if (this.type === 'component' && this.componentRef && this.componentRef.directiveRef) {
-      this.componentRef.directiveRef.setIndex(0);
-    }
-  }
-
-  public toggleKeyboardControl(): void {
-    this.config.keyboard = !this.config.keyboard;
-  }
-
-  public toggleMouseWheelControl(): void {
-    this.config.mousewheel = !this.config.mousewheel;
-  }
-
   public onIndexChange(index: number): void {
-    console.log('Swiper index: ', index);
+    console.log(
+      "Swiper index: ",
+      index,
+      this.componentRef.directiveRef.swiper()
+    );
   }
 
   public onSwiperEvent(event: string): void {
-    console.log('Swiper event: ', event);
+    console.log(
+      "Swiper event: ",
+      event,
+      this.componentRef.directiveRef.swiper()
+    );
   }
 }

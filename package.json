@@ -1,10 +1,10 @@
 {
-  "name": "ngx-swiper-wrapper",
+  "name": "ngx-swiper-wrapper-virt-events-fix",
   "description": "Angular wrapper library for Swiper",
   "bugs": "https://github.com/zefoy/ngx-swiper-wrapper/issues",
-  "version": "10.0.0",
+  "version": "10.0.4",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "ng": "ng",
     "lint": "ng lint",
@@ -46,7 +46,7 @@
     "@angular/flex-layout": "10.0.0-beta.32",
     "@angular/platform-browser": "^10.0.0",
     "@angular/platform-browser-dynamic": "^10.0.0",
-    "swiper": "^6.1.0"
+    "swiper": "6.5.4"
   },
   "devDependencies": {
     "@angular/cli": "^10.0.0",
